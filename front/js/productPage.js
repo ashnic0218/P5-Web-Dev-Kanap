@@ -1,12 +1,12 @@
 let currentItem = {
-    colors: [''],
+    colors: ' ',
     _id: '',
     name: " ",
-    price,
+    price: 0,
     imageUrl: " ",
     description: " ",
     altTxt: " ",
-    quantity: " "
+    quantity: 0
 };
 
 let cartString = localStorage.getItem('cart') || '[]';
@@ -83,7 +83,7 @@ function getQuantity(value) {
     quantity.addEventListener ('input', handleInput);
     function handleInput(userInput) {
         currentItem.quantity = userInput.target.value;
-    }
+    };
     
     console.log(currentItem);
 };
@@ -100,21 +100,22 @@ function addToCart(event) {
     } else {
         //usecase #2 - same name and option - replace
         for (let i = 0; i < cartArray.length; i++) {
-            if (currentItem.name === cartArray[i].name && currentItem.option === cartArray[i].option) {
+            if (currentItem.name === cartArray[i].name && currentItem.colors === cartArray[i].colors) {
                 cartArray[i].quantity = currentItem.quantity;
                 pushedCart = false;
             };
        };
     };
 
-
+    console.log(cartArray);
 
     if (pushedCart) {
         cartArray.push(currentItem);
     };
+
     
     cartString = JSON.stringify(cartArray);
     localStorage.setItem('cart', cartString);
-    console.log(cartArray);
+    
 };
 
