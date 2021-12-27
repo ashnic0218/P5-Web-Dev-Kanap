@@ -159,7 +159,7 @@ function createItem() {
 //Form//
 
 const form = document.getElementsByClassName("cart__order__form")[0];
-
+console.log(form);
 //Name//
 
 form.firstName.addEventListener("change", function () {
@@ -271,9 +271,8 @@ const sendOrder = (order) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("back end " + data);
-        console.log(data.orderId);
         //const orderId = data.orderId;
-        localStorage.setItem("orderId", data.orderId);
+        // localStorage.setItem("orderId", data.orderId);
   
         
         window.location.href = "confirmation.html" + "?" + "id" + "=" + data.orderId;
@@ -282,26 +281,27 @@ const sendOrder = (order) => {
 };
 
 function createOrder() {
-    const products = [];
-    for (product of cartArray) {
-      let productId = product._id;
-      products.push(productId);
-    };
+  const products = [];
+  for (product of cartArray) {
+    let productId = product._id;
+    products.push(productId);
+  };
 
-    const contact = {
-      firstName: form.firstName.value,
-      lastName: form.lastName.value,
-      address: form.address.value,
-      city: form.city.value,
-      email: form.email.value,
-    };
+  const contact = {
+    firstName: form.firstName.value,
+    lastName: form.lastName.value,
+    address: form.address.value,
+    city: form.city.value,
+    email: form.email.value,
+  };
   
-    let order = {
-      contact,
-      products,
-    };
-    console.log("make order ok");
-    sendOrder(order);
+  let order = {
+    contact,
+    products,
+  };
+
+  sendOrder(order); 
+
 };
 
 createItem(cartArray);
