@@ -108,6 +108,7 @@ function createItem() {
                 cartString = JSON.stringify(cartArray);
                 localStorage.setItem("cart", cartString);
                 console.log(cartString);
+                
             };
             getQuantity();
             calculateTotal();
@@ -122,16 +123,22 @@ function createItem() {
     function getQuantity(){
         const totalQuantity = document.getElementById("totalQuantity");
         
-        let total = cartArray.reduce(
+        
+        if (cartArray.length === 0) {
+          totalQuantity.innerHTML = 0;
+        } else {
+          let total = cartArray.reduce(
             (preVal, currVal) => {
 
                 return {quantity: parseInt(preVal.quantity, 10) + parseInt(currVal.quantity, 10)};
-            
+                
                 
             }
         );
-        console.log("total",total);
-        totalQuantity.innerHTML = total.quantity;
+          totalQuantity.innerHTML = total.quantity;
+        };
+        // console.log("total",total);
+        
     };
     
     getQuantity();
