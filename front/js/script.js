@@ -8,6 +8,8 @@ fetch('http://localhost:3000/api/products/')
   })
   .catch(error => console.log("Failed to connect to server.", error));
 
+//***createCards function inputs data from API and returns individual product cards with unique properties***//
+
   function createCards(data) {
     const container = document.getElementById ('items');
 
@@ -27,8 +29,6 @@ fetch('http://localhost:3000/api/products/')
       let productId = data[i]._id;
       name.innerText = data[i].name;
       description.innerText = data[i].description;
-      // let priceString = array[i].price.toString();
-      // let price = priceString.substring(0, 3);
       imageUrl.setAttribute('alt', data[i].altTxt);
       imageUrl.setAttribute('src', data[i].imageUrl);
       let product = document.createElement('article');

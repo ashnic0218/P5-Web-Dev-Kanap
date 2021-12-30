@@ -11,6 +11,10 @@ let itemSection = document.getElementById("cart__items");
 //     };
 // };
 
+
+// Creation of items and elements in cart outputs individual cart items with quantity listener, delete listener
+// also calls quantity function and calculateTotal function***// 
+
 function createItem() {
     
 
@@ -118,7 +122,7 @@ function createItem() {
     };
     
     
-    
+    //gets quantity of total articles available in cart//
     
     function getQuantity(){
         const totalQuantity = document.getElementById("totalQuantity");
@@ -144,6 +148,9 @@ function createItem() {
     getQuantity();
     // console.log(totalQuantityAmount);
 
+
+    // Calculates total price of items in cart using quantity and price values// 
+
     function calculateTotal() {
         const totalPrice = document.getElementById("totalPrice");
 
@@ -167,7 +174,8 @@ function createItem() {
 
 const form = document.getElementsByClassName("cart__order__form")[0];
 console.log(form);
-//Name//
+
+//Name event listeners//
 
 form.firstName.addEventListener("change", function () {
     validName(this);
@@ -175,7 +183,9 @@ form.firstName.addEventListener("change", function () {
 form.lastName.addEventListener("change", function () {
     validName(this);
 });
-  
+
+ // *** Checks for valid name input **// 
+
 const validName = function (inputName) {
     let nameRegExp = new RegExp("^[^- ][a-zA-Z '-àâäéèêëïîôöùûü]*[^- ]$", "g");
     let testName = nameRegExp.test(inputName.value);
@@ -190,12 +200,14 @@ const validName = function (inputName) {
     }
 };
 
-//Address//
+//Address listener//
 
 form.address.addEventListener("change", function () {
     validAddress(this);
 });
-  
+ 
+// *** Checks for valid address input **//
+
 const validAddress = function (inputAdress) {
     let addressRegExp = new RegExp("^[0-9]{1,4} [^- ][a-zA-Z '-àâäéèêëïîôöùûü]*[^- ]$", "g");
     let testAdress = addressRegExp.test(inputAdress.value);
@@ -210,11 +222,13 @@ const validAddress = function (inputAdress) {
     }
 };
 
-//City//
+//City event listener//
 
 form.city.addEventListener("change", function () {
     validCity(this);
 });
+
+// *** Checks for valid city input **//
   
 const validCity = function (inputCity) {
     let cityRegExp = new RegExp("^[^- ][a-zA-Z '-àâäéèêëïîôöùûü]*[^- ]$", "g");
@@ -230,11 +244,13 @@ const validCity = function (inputCity) {
     }
 };
 
-// Email//
+// Email listener//
 
 form.email.addEventListener("change", function () {
     validEmail(this);
 });
+
+// *** Checks for valid email input **//
   
 const validEmail = function (inputEmail) {
     let emailRegExp = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$","g");
@@ -249,6 +265,8 @@ const validEmail = function (inputEmail) {
       return false;
     }
 };
+
+//**event listener that calls create order function if all form inputs are valid */
 
 form.addEventListener("submit", function (e) {
     console.log("submit ok");
@@ -269,6 +287,8 @@ form.addEventListener("submit", function (e) {
     }
 });
 
+//Order send to back end//
+
 const sendOrder = (order) => {
     fetch("http://localhost:3000/api/products/order", {
       method: "POST",
@@ -286,6 +306,8 @@ const sendOrder = (order) => {
         
     });
 };
+
+// create order gathers products in cart array and contacts and posts order to back end //
 
 function createOrder() {
   const products = [];

@@ -1,3 +1,5 @@
+// Get OrderID from post data and displays on screen//
+
 const urlConfirmation = new URL(window.location.href);
 
 const getId = () => {

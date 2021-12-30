@@ -6,7 +6,7 @@ let currentItem = {
     imageUrl: " ",
     description: " ",
     altTxt: " ",
-    quantity: 0
+    quantity: 1
 };
 
 let cartString = localStorage.getItem('cart') || '[]';
@@ -29,8 +29,8 @@ fetch(`${baseURL}/${id}`)
         // currentItemInCart(data);
         // pageTitle.textContent = `${currentItem.name};
     })
-    .catch(error => console.log("Fetch Error.", error));
-
+.catch(error => console.log("Fetch Error.", error));
+//***createCard function inputs current selected item values from API and outputs product page information ***/
 function createCard(currentItem) {
     //Create title and description//
     const title = document.getElementById('title');
@@ -61,6 +61,7 @@ function createCard(currentItem) {
 
     
 };
+//** addPulldown function adds color options to pull down menu from current item color selections***/
 
 function addPulldown(optionsArray) {
     const colors = currentItem.colors;
@@ -72,12 +73,13 @@ function addPulldown(optionsArray) {
         pullDown.appendChild(options);
     };
 };
-
+//*** handlePulldown fuction//***/
+//***inputs an event from an event listener and pulls the target value to create the color value for current item***/
 function handlePullDown(ev) {
     currentItem.colors = ev.target.value;
     console.log(currentItem);
 };
-
+//*** getQuantity creates an event listener to watch for user input in the quantity field */
 function getQuantity(value) {
     const quantity = document.getElementById('quantity');
     quantity.addEventListener ('input', handleInput);
@@ -90,7 +92,9 @@ function getQuantity(value) {
 
 
    
-
+//*** addToCart function inputs data from cart array to check if current item is already in cart
+//*If current Item is already in cart pushed cart returns false and updates to new quantity
+//fuction will push all other option/items to cart */
 function addToCart(event) {
     //The conditional goes here//
     let pushedCart = true;
@@ -100,7 +104,7 @@ function addToCart(event) {
     } else {
         //usecase #2 - same name and option - replace
         for (let i = 0; i < cartArray.length; i++) {
-            if (currentItem.name === cartArray[i].name && currentItem.colors === cartArray[i].colors) {
+            if (currentItem._id === cartArray[i]._id && currentItem.colors === cartArray[i].colors) {
                 cartArray[i].quantity = currentItem.quantity;
                 pushedCart = false;
             };
